@@ -1,0 +1,233 @@
+{
+  "count": 10000,
+  "next": "https://www.udemy.com/api-2.0/courses/?page=2&page_size=12",
+  "previous": null,
+
+  "aggregations": [
+    {
+      "title": "Price",
+      "key": "price",
+      "options": [
+        {
+          "title": "Paid",
+          "count": 10000,
+          "key": "price",
+          "value": "price-paid"
+        },
+        {
+          "title": "Free",
+          "count": 10000,
+          "key": "price",
+          "value": "price-free"
+        }
+      ]
+    },
+    {
+      "title": "Level",
+      "key": "instructional_level",
+      "options": [
+        {
+          "title": "All Levels",
+          "count": 10000,
+          "key": "instructional_level",
+          "value": "all"
+        },
+        {
+          "title": "Beginner",
+          "count": 10000,
+          "key": "instructional_level",
+          "value": "beginner"
+        },
+        {
+          "title": "Intermediate",
+          "count": 10000,
+          "key": "instructional_level",
+          "value": "intermediate"
+        },
+        {
+          "title": "Expert",
+          "count": 5538,
+          "key": "instructional_level",
+          "value": "expert"
+        }
+      ]
+    },
+    {
+      "title": "Features",
+      "key": "features",
+      "options": [
+        {
+          "title": "Subtitles",
+          "count": 10000,
+          "key": "features",
+          "value": "has_closed_caption"
+        },
+        {
+          "title": "Quizzes",
+          "count": 10000,
+          "key": "features",
+          "value": "has_simple_quiz"
+        },
+        {
+          "title": "Coding Exercises",
+          "count": 1662,
+          "key": "features",
+          "value": "has_coding_exercises"
+        },
+        {
+          "title": "Practice Tests",
+          "count": 10000,
+          "key": "features",
+          "value": "has_practice_test"
+        }
+      ]
+    },
+    {
+      "title": "Language",
+      "key": "language",
+      "options": [
+        { "title": "English", "count": 10000, "key": "lang", "value": "en" },
+        { "title": "Português", "count": 10000, "key": "lang", "value": "pt" },
+        { "title": "Español", "count": 10000, "key": "lang", "value": "es" },
+        { "title": "Türkçe", "count": 9952, "key": "lang", "value": "tr" },
+        { "title": "日本語", "count": 9283, "key": "lang", "value": "ja" },
+        { "title": "Deutsch", "count": 6931, "key": "lang", "value": "de" },
+        { "title": "Français", "count": 6833, "key": "lang", "value": "fr" },
+        { "title": "العربية", "count": 6690, "key": "lang", "value": "ar" },
+        { "title": "Italiano", "count": 4311, "key": "lang", "value": "it" },
+        { "title": "中文", "count": 3943, "key": "lang", "value": "zh" },
+        { "title": "한국어", "count": 3375, "key": "lang", "value": "ko" },
+        { "title": "Русский", "count": 2676, "key": "lang", "value": "ru" },
+        { "title": "हिन्दी", "count": 2298, "key": "lang", "value": "hi" },
+        { "title": "Indonesia", "count": 2146, "key": "lang", "value": "id" },
+        { "title": "Polski", "count": 1989, "key": "lang", "value": "pl" },
+        { "title": "Tiếng Việt", "count": 815, "key": "lang", "value": "vi" },
+        { "title": "اردو", "count": 574, "key": "lang", "value": "ur" },
+        { "title": "ไทย", "count": 424, "key": "lang", "value": "th" },
+        { "title": "Română", "count": 412, "key": "lang", "value": "ro" },
+        { "title": "Nederlands", "count": 398, "key": "lang", "value": "nl" },
+        { "title": "தமிழ்", "count": 318, "key": "lang", "value": "ta" },
+        { "title": "עברית", "count": 146, "key": "lang", "value": "he" },
+        { "title": "Українська", "count": 142, "key": "lang", "value": "uk" },
+        { "title": "বাংলা", "count": 119, "key": "lang", "value": "bn" },
+        { "title": "Azərbaycan", "count": 107, "key": "lang", "value": "az" },
+        { "title": "Ελληνικά", "count": 105, "key": "lang", "value": "el" },
+        { "title": "Magyar", "count": 91, "key": "lang", "value": "hu" },
+        { "title": "తెలుగు", "count": 67, "key": "lang", "value": "te" },
+        { "title": "فارسی", "count": 65, "key": "lang", "value": "fa" },
+        { "title": "മലയാളം", "count": 63, "key": "lang", "value": "ml" },
+        { "title": "मराठी", "count": 58, "key": "lang", "value": "mr" },
+        { "title": "Hrvatski", "count": 32, "key": "lang", "value": "hr" },
+        { "title": "Српски", "count": 31, "key": "lang", "value": "sr" },
+        { "title": "မြန်မာ", "count": 29, "key": "lang", "value": "my" },
+        { "title": "Български", "count": 24, "key": "lang", "value": "bg" },
+        { "title": "Čeština", "count": 22, "key": "lang", "value": "cs" },
+        { "title": "ქართული", "count": 22, "key": "lang", "value": "ka" },
+        { "title": "Melayu", "count": 22, "key": "lang", "value": "ms" },
+        { "title": "Svenska", "count": 21, "key": "lang", "value": "sv" },
+        { "title": "Norsk bokmål", "count": 20, "key": "lang", "value": "nb" },
+        { "title": "Tagalog", "count": 17, "key": "lang", "value": "tl" },
+        { "title": "Soomaali", "count": 16, "key": "lang", "value": "so" },
+        { "title": "Afrikaans", "count": 15, "key": "lang", "value": "af" },
+        { "title": "ગુજરાતી", "count": 15, "key": "lang", "value": "gu" },
+        { "title": "नेपाली", "count": 14, "key": "lang", "value": "ne" },
+        { "title": "Dansk", "count": 12, "key": "lang", "value": "da" },
+        { "title": "Shqip", "count": 12, "key": "lang", "value": "sq" },
+        { "title": "Kiswahili", "count": 12, "key": "lang", "value": "sw" },
+        { "title": "ಕನ್ನಡ", "count": 11, "key": "lang", "value": "kn" },
+        { "title": "O‘zbek", "count": 11, "key": "lang", "value": "uz" },
+        { "title": "Eesti", "count": 10, "key": "lang", "value": "et" },
+        { "title": "Қазақ тілі", "count": 10, "key": "lang", "value": "kk" },
+        { "title": "Suomi", "count": 9, "key": "lang", "value": "fi" },
+        { "title": "Lietuvių", "count": 9, "key": "lang", "value": "lt" },
+        { "title": "Latviešu", "count": 9, "key": "lang", "value": "lv" },
+        { "title": "Slovenčina", "count": 8, "key": "lang", "value": "sk" },
+        { "title": "Gaeilge", "count": 6, "key": "lang", "value": "ga" },
+        { "title": "Català", "count": 5, "key": "lang", "value": "ca" },
+        { "title": "ខ្មែរ", "count": 5, "key": "lang", "value": "km" },
+        { "title": "Kurdî", "count": 5, "key": "lang", "value": "ku" },
+        { "title": "ਪੰਜਾਬੀ", "count": 5, "key": "lang", "value": "pa" },
+        { "title": "Slovenščina", "count": 5, "key": "lang", "value": "sl" },
+        { "title": "Հայերեն", "count": 4, "key": "lang", "value": "hy" },
+        { "title": "پښتو", "count": 4, "key": "lang", "value": "ps" },
+        { "title": "Haitian Creole", "count": 3, "key": "lang", "value": "ht" },
+        { "title": "Монгол", "count": 3, "key": "lang", "value": "mn" },
+        { "title": "Runasimi", "count": 3, "key": "lang", "value": "qu" },
+        { "title": "Guarani", "count": 2, "key": "lang", "value": "gn" },
+        { "title": "संस्कृत भाषा", "count": 2, "key": "lang", "value": "sa" },
+        { "title": "Euskara", "count": 1, "key": "lang", "value": "eu" },
+        { "title": "Frysk", "count": 1, "key": "lang", "value": "fy" },
+        { "title": "Македонски", "count": 1, "key": "lang", "value": "mk" },
+        { "title": "Тоҷикӣ", "count": 1, "key": "lang", "value": "tg" },
+        { "title": "IsiXhosa", "count": 1, "key": "lang", "value": "xh" },
+        { "title": "IsiZulu", "count": 1, "key": "lang", "value": "zu" }
+      ]
+    },
+    {
+      "title": "Ratings",
+      "key": "ratings",
+      "options": [
+        {
+          "title": "4.5 & up",
+          "count": 10000,
+          "key": "ratings",
+          "value": "4.5"
+        },
+        {
+          "title": "4.0 & up",
+          "count": 10000,
+          "key": "ratings",
+          "value": "4.0"
+        },
+        {
+          "title": "3.5 & up",
+          "count": 10000,
+          "key": "ratings",
+          "value": "3.5"
+        },
+        {
+          "title": "3.0 & up",
+          "count": 10000,
+          "key": "ratings",
+          "value": "3.0"
+        }
+      ]
+    },
+    {
+      "title": "Video Duration",
+      "key": "duration",
+      "options": [
+        {
+          "title": "0-1 Hour",
+          "count": 10000,
+          "key": "duration",
+          "value": "extraShort"
+        },
+        {
+          "title": "1-3 Hours",
+          "count": 10000,
+          "key": "duration",
+          "value": "short"
+        },
+        {
+          "title": "3-6 Hours",
+          "count": 10000,
+          "key": "duration",
+          "value": "medium"
+        },
+        {
+          "title": "6-17 Hours",
+          "count": 10000,
+          "key": "duration",
+          "value": "long"
+        },
+        {
+          "title": "17+ Hours",
+          "count": 10000,
+          "key": "duration",
+          "value": "extraLong"
+        }
+      ]
+    }
+  ]
+}

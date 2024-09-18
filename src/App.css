@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* html::-webkit-scrollbar {
+  display: none;
+}
+html {
+  scrollbar-width: none;
+} */
+
+:root{
+  --colorOrange : #EFA400;
+  --colorBgNumbers: #FCDDB4;
+  --colorWhite: #ffffff;
+}
+
+.layout {
+  background: rgb(255, 248, 217);
+  background: linear-gradient(
+    117deg,
+    rgba(255, 248, 217, 1) 21%,
+    rgba(242, 242, 242, 1) 64%,
+    rgba(255, 244, 215, 1) 100%
+  );
+}
+.activ {
+  @apply text-red-500;
+}
+.hero-text {
+  background: #cf810e;
+  background: linear-gradient(to right, #cf810e 13%, #c4cf1a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-about {
+  background: rgb(244, 213, 75);
+  background: linear-gradient(
+    117deg,
+    rgba(244, 213, 75, 0.29744397759103647) 21%,
+    rgba(242, 242, 242, 1) 49%,
+    rgba(255, 195, 116, 0.48792016806722693) 100%
+  );
+}
+.hero-about {
+  background: rgb(244, 213, 75);
+  background: linear-gradient(
+    117deg,
+    rgba(244, 213, 75, 0.29744397759103647) 21%,
+    rgba(242, 242, 242, 1) 49%,
+    rgba(255, 195, 116, 0.48792016806722693) 100%
+  );
+}
+
+.dropbtn {
+  color: white;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
