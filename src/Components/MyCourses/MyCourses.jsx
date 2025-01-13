@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { auth, db } from "../../firebase-config";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
-import CourseItem from "../Courses/CourseItem";
 import Spinner from "../Spinner";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function MyCourses() {
   const translate = useSelector((state) => state.language.translation);
@@ -19,21 +20,33 @@ export default function MyCourses() {
           const docRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
-            console.log(docSnap.data().myCourses);
             setMyCourses(docSnap.data().myCourses);
-            console.log("a", myCourses);
           }
         }
       } catch (error) {
-        console.log(error);
-      } finally{
+        toast.error(error.message);
+      } finally {
         setIsLoading(false);
       }
     };
 
     fetchUserCourses();
   }, []);
-  
+
+  const handleDeleteMyCourse = async (courseDelete) => {
+    const updateMyCourses = myCourses.filter((course) => course.id !== courseDelete.id);
+    setMyCourses(updateMyCourses);
+
+    try{
+      const docRef = (doc(db,"users",user.uid));
+      await updateDoc(docRef,{
+        myCourses: updateMyCourses,
+      })
+      toast.success(translate.DeleteCourse);
+    }catch(error){
+      toast.error(error.message);
+    }
+  };
 
   return (
     <>
@@ -41,13 +54,59 @@ export default function MyCourses() {
         <div className="text-center p-10">
           <h1 className="font-bold text-4xl mb-4">{translate.MyCourses}</h1>
           <section className="flex justify-center gap-5">
-          {isLoading ? (
-          <Spinner />
-        ) : myCourses.length > 0 ? (
-          myCourses.map((course) => (
-            <CourseItem course={course} key={course.id} />
-          ))
-        ) : <div>no courses</div>  }
+            {isLoading ? (
+              <Spinner />
+            ) : myCourses.length > 0 ? (
+              myCourses.map((course) => (
+                // <CourseItem course={course} key={course.id} />
+                <div
+                  key={course.id}
+                  className="w-80 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl "
+                >
+                  <div className="project-img relative cursor-pointer">
+                    <Link
+                      to={`/courses/${course.id}`}
+                      className="text-blue-500 hover:underline"
+                    >
+                      <img
+                        src={course.image_480x270}
+                        alt="Course"
+                        className="h-80 w-80 object-cover rounded-t-xl"
+                      />
+                    </Link>
+                  </div>
+                  <div className="px-4 py-3 w-80 relative">
+                    <span className="text-gray-400 mr-3 uppercase text-xs ">
+                      {course.visible_instructors[0].display_name}
+                    </span>
+                    <span className="absolute right-0 bottom-[67%]">
+                      <img
+                        className="rounded-full w-[80px]"
+                        src={course.visible_instructors[0].image_100x100}
+                        alt=""
+                      />
+                    </span>
+                    <p className="text-lg font-semibold text-black truncate block capitalize py-2">
+                      {course.title}
+                    </p>
+                    <div className="flex items-center">
+                      <p className="text-green-500">{translate.Free}</p>
+
+                      <div className="ml-auto">
+                        <button
+                          onClick={() => handleDeleteMyCourse(course)}
+                          className="py-1 px-2 text-white bg-amber-600 hover:bg-amber-700 text-sm font-medium rounded-md"
+                        >
+                          {translate.Delete}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>{translate.NoCourses}</div>
+            )}
           </section>
         </div>
       </div>
@@ -56,20 +115,7 @@ export default function MyCourses() {
 }
 
 {
-  /* <section>
-{
-  (courses.length > 0 ?               courses.map((course) => {
-    <CourseItem course={course} key={course.id}></CourseItem>
-  }) : <div>notFounded</div>)
-}
-</section>
-<pre>{JSON.stringify(courses, null, 2)}</pre>
-<div>{courses[0].id}test</div>
-<div>{courses[1].visible_instructors[0].display_name}</div> */
-}
-
-
-{/* <div key={course.id} className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  /* <div key={course.id} className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                   <a href="#">
                     <img
                       className="w-full h-80 rounded-t-lg"
@@ -147,4 +193,5 @@ export default function MyCourses() {
                               </a>
                     </div>
                   </div>
-                </div> */}
+                </div> */
+}

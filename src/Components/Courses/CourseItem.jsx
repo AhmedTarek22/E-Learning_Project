@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToWishlist, removeFromWishlist } from "../../Redux/wishlistSlice";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { auth, db } from "../../firebase-config";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 function CourseItem({ course }) {
   const translate = useSelector((state) => state.language.translation);
@@ -28,46 +28,18 @@ function CourseItem({ course }) {
 
   const user = auth.currentUser;
 
-  // const [enroll, setEnroll] = useState([]);
-  // useEffect(() => {
-  //   const fetchUserCourses = async () => {
-  //     try{
-  //       if(user){
-  //         const docRef = (doc(db,"users",user.uid));
-  //         const docSnap = await getDoc(docRef);
-  //         if(docSnap.exists()){
-  //           // setEnroll(docSnap.data().myCourses || [])
-  //           console.log(docSnap.data().myCourses || []);
-  //         }
-  //       }
-  //     }catch (error){
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   fetchUserCourses();
-  // }, []);
-
   const handleAddToMyCourses = async (course) => {
-    console.log(course.id);
     try{
       console.log(user);
-      // setEnroll({
-      //   ...enroll,
-      //   course: course.id,
-      // })
-      // const updatedCourses = { ...enroll,};
-      
       if(user){
         const docRef = (doc(db, "users",user.uid));
         await updateDoc(docRef,{
           myCourses: arrayUnion(course)
         })
-        // setEnroll(enroll , course.id);
+        toast.success(translate.CourseEnrolled);
       }
     }catch (error){
-      console.log(error);
-      
+      toast.error(error.message);
     }
   };
 

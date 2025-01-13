@@ -5,7 +5,6 @@ import {
   query,
   startAfter,
   addDoc,
-  orderBy,
 } from "firebase/firestore";
 
 // Firebase Storage imports
@@ -43,6 +42,9 @@ export default function Admin() {
   const [isUpdateDataComplete, setIsUpdateDataComplete] = useState(false);
   const navigate = useNavigate();
 
+  console.log(courses);
+  
+
   useEffect(() => {
     fetchCourses();
   }, [isUpdateDataComplete]);
@@ -76,10 +78,10 @@ export default function Admin() {
     }
   }
 
-  const [courseName, setCourseName] = useState(selectedCourse?.title || "");
-  const [instructorName, setInstructorName] = useState(
-    selectedCourse?.visible_instructors[0]?.display_name || ""
-  );
+  // const [courseName, setCourseName] = useState(selectedCourse?.title || "");
+  // const [instructorName, setInstructorName] = useState(
+  //   selectedCourse?.visible_instructors[0]?.display_name || ""
+  // );
 
   const loadMoreCourses = async () => {
     if (!lastVisible) return;

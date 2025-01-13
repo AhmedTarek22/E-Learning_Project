@@ -7,30 +7,17 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ButtonComponent from "../ButtonComponent";
 import Spinner from "../Spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { reauthenticateWithCredential, updatePassword } from "firebase/auth";
+import { EmailAuthProvider } from "firebase/auth/web-extension";
 
 export default function Profile() {
-  //   // const x = 5;
-  //   // console.log(auth);
-  //   let userData;
-  //   const user = auth.currentUser;
-  //   console.log(user);
-
-  //   // console.log(db);
-
-  // const docRef = doc(db, "users", user.uid);
-  // const docSnap = await getDoc(docRef);
-
-  // if (docSnap.exists()) {
-  //   // console.log("Document data:", docSnap.data().fullName);
-  //   userData = docSnap.data();
-  // } else {
-  //   // docSnap.data() will be undefined in this case
-  //   console.log("No such document!");
-  // }
-
   const user = auth.currentUser;
   const translate = useSelector((state) => state.language.translation);
   const navigate = useNavigate();
+
+  const [checklogin, setIsLogin] = useState(false);
 
   const [userData, setUserData] = useState({
     fullName: "",
@@ -38,7 +25,12 @@ export default function Profile() {
     phone: "",
     country: "",
     city: "",
-  }); // لتخزين بيانات المستخدم
+    password: "",
+  });
+
+  // let userPass = user.p
+
+  const [currentPassword,setCurrentPassword] = useState("");
 
   const [originalUserData, setOriginalUserData] = useState({
     fullName: "",
@@ -46,51 +38,58 @@ export default function Profile() {
     phone: "",
     country: "",
     city: "",
+    password: "",
   });
-  const [isLoading, setIsLoading] = useState(true); // لتتبع حالة التحميل
+
+  const [isLoading, setIsLoading] = useState(true);
+  
   const [error, setError] = useState({
     fullNameError: "",
     phoneError: "",
+    passwordError: "",
     generalError: "",
-  }); // لتخزين رسالة الخطأ في حال حدوثه
+  });
+
+  const [isValid, setIsValid] = useState(false);
+  useEffect(() =>{
+    const noError = !error.fullNameError && !error.phoneError && !error.generalError ;
+    setIsValid(noError);
+  }, [error])
+
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         if (user) {
-          const docRef = doc(db, "users", user.uid); // مرجع الوثيقة في Firestore
-          const docSnap = await getDoc(docRef); // جلب بيانات الوثيقة
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
             setUserData(docSnap.data().data);
             setOriginalUserData(docSnap.data().data);
-            console.log(docSnap.data());
-
-            // تحديث حالة userData بالبيانات المستلمة
           } else {
             setError({
               ...error,
-              generalError: "No such document!",
-            }); // إذا لم توجد الوثيقة
+              generalError: `${translate.NoData}`,
+            });
           }
         } else {
           setError({
             ...error,
-            generalError: "No user is signed in.",
-          }); // إذا لم يكن هناك مستخدم مسجل
+            generalError: `${translate.NotSigned}`,
+          });
         }
       } catch (err) {
         setError({
           ...error,
-          generalError: "Failed to load user data.",
-        }); // التعامل مع الأخطاء
-        console.error("Error fetching user data:", err);
+          generalError: `${translate.FailedToUpdate}`,
+        });
       } finally {
-        setIsLoading(false); // تحديد أن الجلب قد اكتمل
+        setIsLoading(false);
       }
     };
 
-    fetchUserData(); // استدعاء الدالة عند تحميل المكون
+    fetchUserData();
   }, []);
 
   const validFullName = /^[a-zA-Z\s]{3,50}$/;
@@ -102,7 +101,7 @@ export default function Profile() {
         ...userData,
         fullName: e.target.value,
       });
-      console.log(userData);
+      // console.log(userData);
       setError({
         ...error,
         fullNameError:
@@ -120,15 +119,29 @@ export default function Profile() {
           !validPhone.test(e.target.value) &&
           "Please enter a valid phone number (7-15 numbers).",
       });
+    } else if (e.target.name === "password"){
+      setUserData({
+        ...userData,
+        password: e.target.value,
+      });
+      setError({
+        ...error,
+        passwordError: originalUserData.password !== e.target.value && "not password",
+      })
     }
   };
+  
 
   const handleUpdateData = async (e) => {
     e.preventDefault();
 
     try {
-      const user = auth.currentUser;
       if (user) {
+        const credential = EmailAuthProvider.credential(user.email, currentPassword);
+        await reauthenticateWithCredential(user, credential);
+        if (newPassword !== "") {
+          await updatePassword(user, newPassword);
+        }
         const docRef = doc(db, "users", user.uid);
         await updateDoc(docRef, {
           data: userData,
@@ -137,27 +150,40 @@ export default function Profile() {
       } else {
         setError({
           ...error,
-          generalError: "No user is signed in.",
+          generalError: `${translate.NotSigned}`,
         });
       }
     } catch (err) {
       setError({
         ...error,
-        generalError: "Failed to update user data.",
+        generalError: `${translate.FailedToUpdate}`,
       });
-      console.error("Error updating user data:", err);
     }
+    setIconUpdate(true);
   };
 
-  const [iconUpdate, setIconUpdate] = useState(false);
+  const [iconUpdate, setIconUpdate] = useState(true);
   const handleToUpdate = () => {
-    iconUpdate ? setIconUpdate(false) : setIconUpdate(true);
+    // iconUpdate ? setIconUpdate(false) : setIconUpdate(true);
+    setIconUpdate(false);    
   };
 
   const handleCancelBtn = (e) => {
     e.preventDefault();
     setUserData(originalUserData);
+    setIconUpdate(true);
+    setError({
+      ...error,
+      fullNameError: "",
+      phoneError: "",
+    })
   };
+
+  useEffect(() => {
+    if (checklogin) {
+      localStorage.setItem("isLoggedIn", "true");
+    }
+  }, [checklogin]);
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
@@ -169,16 +195,30 @@ export default function Profile() {
         await user.delete();
 
         toast.success(translate.DeleteAccountDone);
+        setIsLogin(false);
+        localStorage.removeItem("isLoggedIn");
         navigate("/login");
       } catch (error) {
         toast.error(error.message);
-        console.log(error.message);
       }
     }
   };
 
-  // if (isLoading) return <p>Loading...</p>; // عرض رسالة التحميل أثناء انتظار البيانات
-  // if (error.generalError) return <p>{error.generalError}</p>;
+  const [newPassword,setNewPassword] = useState("");
+
+  const [confirmNewPassword,setConfirmPassword] = useState("");
+  const [errorNewPassword,setErrorNewPassword] = useState("")
+
+  const handleNewPassword = (e) => {
+    if (e.target.name === "newPassword") {
+      setNewPassword(e.target.value);
+      setErrorNewPassword(e.target.value !== confirmNewPassword ? "Passwords do not match" : "");
+    } else if (e.target.name === "confirmNewPassword") {
+      setConfirmPassword(e.target.value);
+      setErrorNewPassword(newPassword !== e.target.value ? "Passwords do not match" : "");
+    }
+  }
+
 
   return (
     <div className="">
@@ -187,10 +227,17 @@ export default function Profile() {
       ) : (
         <section className="layout py-12">
           <div className="w-full px-10 md:w-3/4 lg:w-1/2 m-auto">
+          <h2 className="text-5xl font-bold mt-3 mb-24 text-center">{translate.Profile}</h2>
             <div className="m-auto rounded bg-white relative">
-              <figure className="w-10" onClick={handleToUpdate}>
-                <img src="../../../public/update-icon.png" alt="" />
-              </figure>
+              {iconUpdate && (
+                <div className="w-10 ms-auto cursor-pointer" onClick={handleToUpdate}>
+                  <FontAwesomeIcon
+                    size="2x"
+                    color="#EFA400"
+                    icon={faPenToSquare}
+                  />
+                </div>
+              )}
               <h4 className="text-2xl font-bold text-center pt-[100px]">
                 {translate.EditYourProfileDetails}
               </h4>
@@ -206,14 +253,17 @@ export default function Profile() {
                   <label className="font-bold" htmlFor="">
                     {translate.FullName}
                   </label>
+                  <div className="relative">
                   <input
                     className="focus:outline-none w-full rounded border-solid border-2 border-[#AFAFAF] p-2"
                     type="text"
                     pattern="^[a-zA-Z\s]{2,50}$"
                     name="fullName"
                     value={userData.fullName}
-                    onChange={iconUpdate ? (e) => handleUserData(e) : null}
+                    onChange={!iconUpdate ? (e) => handleUserData(e) : null}
                   />
+                  {!iconUpdate && <FontAwesomeIcon size="lg" className="absolute right-3 top-1/2 -translate-y-2/4" color="#EFA400" icon={faPencil} />}
+                  </div>
                   {error.fullNameError && (
                     <span className="text-red-500">{error.fullNameError}</span>
                   )}
@@ -256,17 +306,20 @@ export default function Profile() {
                   </div>
                 </div>
 
-                <div className="my-4">
+                <div className="my-4 relative">
                   <label className="font-bold" htmlFor="">
                     {translate.PhoneNumber}
                   </label>
+                  <div className="relative">
                   <input
                     className="focus:outline-none w-full rounded border-solid border-2 border-[#AFAFAF] p-2"
                     type="text"
                     name="phone"
                     value={userData.phone}
-                    onChange={iconUpdate ? (e) => handleUserData(e) : null}
+                    onChange={!iconUpdate ? (e) => handleUserData(e) : null}
                   />
+                  {!iconUpdate && <FontAwesomeIcon size="lg" className="absolute right-3 top-1/2 -translate-y-2/4" color="#EFA400" icon={faPencil} />}
+                  </div>
                   {error.phoneError && (
                     <span className="text-red-500">{error.phoneError}</span>
                   )}
@@ -274,24 +327,61 @@ export default function Profile() {
 
                 <div className="my-4">
                   <label className="font-bold" htmlFor="">
-                    {translate.ResetPassword}
+                    {translate.CurrentPassword}
                   </label>
                   <input
                     className="focus:outline-none w-full rounded border-solid border-2 border-[#AFAFAF] p-2"
                     type="text"
-                    placeholder="password"
+                    name="password"
+                    placeholder="Password"
+                    // value={CurrentPassword}
+                    onChange={!iconUpdate ? (e) => setCurrentPassword(e.target.value) : null}
                   />
+                  {error.passwordError && (
+                    <span className="text-red-500">{error.passwordError}</span>
+                  )}
+                </div>
+
+                <div className="my-4">
+                  <label className="font-bold" htmlFor="">
+                    {translate.NewPassword}
+                  </label>
+                  <input
+                    className="focus:outline-none w-full rounded border-solid border-2 border-[#AFAFAF] p-2"
+                    type="text"
+                    name="newPassword"
+                    placeholder="New password"
+                    value={newPassword}
+                    onChange={!iconUpdate ? (e) => handleNewPassword(e) : null}
+                  />
+                </div>
+                
+                <div className="my-4">
+                  <label className="font-bold" htmlFor="">
+                    {translate.ConfirmNewPassword}
+                  </label>
+                  <input
+                    className="focus:outline-none w-full rounded border-solid border-2 border-[#AFAFAF] p-2"
+                    type="text"
+                    name="confirmNewPassword"
+                    placeholder="Confirm new password"
+                    value={confirmNewPassword}
+                    onChange={!iconUpdate ? (e) => handleNewPassword(e) : null}
+                  />
+                    {errorNewPassword && (
+                    <span className="text-red-500">{errorNewPassword}</span>
+                  )}
                 </div>
 
                 <div className="mt-10 flex justify-between flex-col md:flex-row gap-5 md:gap-0">
-                  {/* <button onClick={(e) => handleCancelBtn(e)} className="bg-[#676767] px-4 py-1 rounded-md">
-                    {translate.Cancel}
-                  </button> */}
                   <ButtonComponent
+                    hidden={iconUpdate}
                     onClick={(e) => handleCancelBtn(e)}
                     nameBtn={translate.Cancel}
                   ></ButtonComponent>
                   <button
+                    hidden={iconUpdate}
+                    disabled={!isValid}
                     onClick={(e) => handleUpdateData(e)}
                     className="bg-[#EFA400] px-4 py-1 text-white rounded-md"
                   >

@@ -103,10 +103,49 @@ const EN = {
   Lang: "Lang",
   Arabic: "Arabic",
   English: "English",
+  CourseEnrolled: "course enrolled",
   // profile
   UpdateUserData: "Data updated successfully.",
   DeleteAccount: "Delete Account",
   DeleteAccountDone: "Delete Account Done",
+  Profile: "Profile",
+  NotSigned: "Not signed in.",
+  FailedToUpdate: "Failed to update your data.",
+  NoData: "Not found data",
+  CurrentPassword: "Currnet Password",
+  NewPassword: "NewPassword",
+  ConfirmNewPassword: "ConfirmNewPassword",
+
+  // footer
+  SupportUs: "Support Us",
+  Subscribe: "Subscribe to our Newsletter",
+  Copyright: "© Copyright 2020. All Rights Reserved.",
+  Learnree: "Learnree - Learn Free",
+
+  // myCourses
+  NoCourses: "Not found Courses",
+  Delete: "Delete",
+  DeleteCourse: "Deleted Course",
+
+  // navbar
+  welcome: "Welcome",
+
+  // contact us
+  Name: "Name",
+  Message: "Message",
+  Terms: "I agree to the terms and conditions.",
+  Send: "Send",
+  OurOffice: "Our Office",
+  address: "3979 8th St NW, Washington, D.C. 20011, USA",
+
+  // about us
+  EmpowerAbout: "Empower us, and we'll turn Possibilities into Reality.",
+  InnovativeAbout: "An innovative e-learning platform offering interactive courses, expert-led tutorials, and personalized learning paths to help you master new skills and achieve your goals.",
+  UnlockingAbout: "Unlocking Your Potential is Our First Achievement.",
+  WhetherAbout: "Whether you're eager to acquire a new skill, empower your teams, or share your knowledge with the world, you're exactly where you need to be. As a pioneer in online learning, we're dedicated to helping you reach your goals and reshape your future.",
+  WeBringAbout: "We bring joy to every lesson we share.",
+  OurPlatformAbout: "Our platform delivers exceptional efficiency and flexibility, ensuring a tailored learning experience that fits your unique needs. Whether you're looking to master new skills or enhance your knowledge, our tools and resources are designed to help you achieve your goals with ease and effectiveness.",
+
 };
 
 export default EN;
