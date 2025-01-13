@@ -11,8 +11,8 @@ import { auth } from "../../firebase-config";
 import loginImg from "../../assets/Banner-e-learning-concept-vector-design-removebg-preview.png";
 import { useCoursesContext } from "../../Context/CoursesProvider";
 import { useSelector } from "react-redux";
-export default function Login() {
 
+export default function Login() {
   const translate = useSelector((state) => state.language.translation);
 
   const { loginStatus } = useCoursesContext();

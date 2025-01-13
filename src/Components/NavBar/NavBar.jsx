@@ -77,7 +77,7 @@ export default function NavBar() {
             {checklogin ? (
               <>
                 <p className="text-amber-700 font-medium me-3">
-                  welcome: {userName}
+                  {translate.welcome}: {userName}
                 </p>
                 <div className="profile">
                   <div className="dropdown">

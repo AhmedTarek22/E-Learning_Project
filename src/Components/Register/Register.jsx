@@ -130,8 +130,10 @@ export default function Register() {
         },
         myCourses: {},
       };
-      delete formDataCopy.data.password;
-      delete formDataCopy.data.repassword;
+      
+      // delete formDataCopy.data.password;
+      // delete formDataCopy.data.repassword;
+
       // formDataCopy.timestamp = serverTimestamp();
       // formDataCopy.role = "user";
       console.log(formData);

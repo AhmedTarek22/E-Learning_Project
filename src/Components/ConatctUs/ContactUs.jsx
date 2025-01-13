@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux";
+
 export default function ContactUs() {
+
+  const translate = useSelector(state => state.language.translation);
   return (
     <div className="layout pb-32">
       <section className="mb-32">
@@ -30,7 +34,7 @@ export default function ContactUs() {
                       className="bg-[#e8f0fd] px-1 pointer-events-none absolute top-0 left-3 mt-2 text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-5 peer-focus:scale-75 peer-focus:text-primary"
                       htmlFor="exampleInput90"
                     >
-                      Name
+                      {translate.Name}
                     </label>
                   </div>
                   <div className="relative mb-6" data-te-input-wrapper-init>
@@ -43,7 +47,7 @@ export default function ContactUs() {
                       className="bg-[#fbfbf8] px-1 pointer-events-none absolute top-0 left-3 mt-2 text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-5 peer-focus:scale-75 peer-focus:text-primary"
                       htmlFor="exampleInput91"
                     >
-                      Email address
+                      {translate.Email}
                     </label>
                   </div>
                   <div className="relative mb-6" data-te-input-wrapper-init>
@@ -56,7 +60,7 @@ export default function ContactUs() {
                       htmlFor="exampleFormControlTextarea1"
                       className="bg-[#fffdf8] px-1 pointer-events-none absolute top-0 left-3 mt-2 text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-5 peer-focus:scale-75 peer-focus:text-primary"
                     >
-                      Message
+                      {translate.Message}
                     </label>
                   </div>
                   <div className="mb-6 flex items-center">
@@ -70,14 +74,14 @@ export default function ContactUs() {
                       className="text-neutral-500"
                       htmlFor="exampleCheck96"
                     >
-                      I agree to the terms and conditions.
+                      {translate.Terms}
                     </label>
                   </div>
                   <button
                     type="submit"
                     className="w-full rounded bg-primary px-6 py-2 text-xs font-medium uppercase text-white shadow transition duration-150 ease-in-out hover:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700"
                   >
-                    Send
+                    {translate.Send}
                   </button>
                 </form>
               </div>
@@ -102,9 +106,9 @@ export default function ContactUs() {
                       </svg>
                     </div>
                     <div className="ml-12">
-                      <p className="mb-2 text-lg font-semibold">Our Office</p>
+                      <p className="mb-2 text-lg font-semibold">{translate.OurOffice}</p>
                       <p className="text-neutral-500">
-                        3979 8th St NW, Washington, D.C. 20011, USA
+                        {translate.address}
                       </p>
                     </div>
                   </div>
@@ -127,7 +131,7 @@ export default function ContactUs() {
                       </svg>
                     </div>
                     <div className="ml-12">
-                      <p className="mb-2 text-lg font-semibold">Phone</p>
+                      <p className="mb-2 text-lg font-semibold">{translate.Phone}</p>
                       <p className="text-neutral-500">+1 234 567 890</p>
                     </div>
                   </div>
@@ -150,7 +154,7 @@ export default function ContactUs() {
                       </svg>
                     </div>
                     <div className="ml-12">
-                      <p className="mb-2 text-lg font-semibold">Email</p>
+                      <p className="mb-2 text-lg font-semibold">{translate.Email}</p>
                       <p className="text-neutral-500">contact@yourdomain.com</p>
                     </div>
                   </div>

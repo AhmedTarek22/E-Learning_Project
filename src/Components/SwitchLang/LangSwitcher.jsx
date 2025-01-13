@@ -23,7 +23,8 @@ const LanguageSwitcher = () => {
         data-dropdown-toggle="dropdownDelay"
         data-dropdown-delay="500"
         data-dropdown-trigger="hover"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="px-4 py-1 bg-[--colorOrange] text-center inline-flex items-center rounded"
+        // className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button"
       >
         {translate.Lang}
@@ -54,8 +55,7 @@ const LanguageSwitcher = () => {
         >
           <li>
             <a
-              onClick={switchToArabic}
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+npm install react-redux              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
             >
               {translate.Arabic}
             </a>

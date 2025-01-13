@@ -257,14 +257,14 @@ export default function Home() {
             <figure className="relative w-[50%] h-[100%]">
               <img
                 className="rounded w-[90%] lg:w-[60%]"
-                src="https://media.gettyimages.com/id/1328492781/photo/communicating-on-the-video-call-from-home.jpg?s=612x612&w=gi&k=20&c=AFTXkR6EL2v9qAtPXVHzrUiUN8yJtVIW565LPIKMzcE="
+                src="https://t3.ftcdn.net/jpg/03/45/29/56/360_F_345295622_gUzV6dU09syTrk49uSabBvhaEDBlJeFp.jpg"
                 alt=""
               />
-              <img
+              {/* <img
                 className="absolute rounded lg:w-[30%] lg:top-1/2 lg:translate-y-[-50%] lg:right-[130px] w-[60%] top-[60%] translate-y-[-50%] right-[-120px]"
                 src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/e-learning-online-classes-online-distance-design-template-2075ab88e57431859fc3a3f130423696_screen.jpg?ts=1686041965"
                 alt=""
-              />
+              /> */}
             </figure>
             <div className="w-3/4 lg:w-1/2 py-10">
               <p>{translate.AboutUs}</p>

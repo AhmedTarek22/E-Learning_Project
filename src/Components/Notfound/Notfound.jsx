@@ -1,4 +1,3 @@
-import React from 'react'
 import error from "../../assets/error2.png"
 
 export default function Notfound() {
