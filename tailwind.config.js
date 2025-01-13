@@ -1,9 +1,9 @@
-/** @type {import('tailwindcss').Config} */
+import flowbitePlugin from "./node_modules/flowbite/plugin.js";
+
 export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./node_modules/flowbite/**/*.js"],
+  content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {},
   },
-  // eslint-disable-next-line no-undef
-  plugins: [import("flowbite/plugin")],
+  plugins: [flowbitePlugin],
 };
